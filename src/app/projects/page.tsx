@@ -2,7 +2,7 @@ import { wordpress } from "@/lib/wordpress";
 import { GET_PROJECTS } from "@/lib/queries";
 import type { Project } from "@/types/project";
 import Link from "next/link";
-
+import Image from "next/image";
 
 type GetProjectsResponse = {
     projects: {
@@ -29,15 +29,34 @@ export default async function ProjectsPage() {
                     <Link
                         key={project.id}
                         href={`/projects/${project.slug}`}
-                        className="block rounded-xl border p-6 transition hover:-translate-y-1"
+                        className="group overflow-hidden rounded-2xl border"
                     >
-                        <h2 className="text-2xl font-semibold">
-                            {project.title}
-                        </h2>
+                        {project.featuredImage?.node && (
+                            <div className="relative aspect-video overflow-hidden">
+                                <img
+                                    src={project.featuredImage.node.sourceUrl}
+                                    alt={
+                                        project.featuredImage.node.altText ||
+                                        project.title
+                                    }
+                                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                />
+                            </div>
+                        )}
 
-                        <p className="mt-2 text-sm text-gray-500">
-                            View project →
-                        </p>
+                        <div className="p-6">
+                            <h2 className="text-2xl font-semibold">
+                                {project.title}
+                            </h2>
+
+                            <p className="mt-2 text-gray-600">
+                                {project.projectDetails.description}
+                            </p>
+
+                            <p className="mt-4 text-sm">
+                                View project →
+                            </p>
+                        </div>
                     </Link>
                 ))}
             </div>

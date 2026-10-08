@@ -22,6 +22,22 @@ export const GET_PROJECTS = gql`
         title
         slug
         date
+
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+
+        projectDetails {
+          description
+          githubUrl
+          liveUrl
+          status
+          projectType
+          technologies
+        }
       }
     }
   }
@@ -35,6 +51,22 @@ export const GET_PROJECT = gql`
       slug
       content
       date
+
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+        }
+      }
+
+      projectDetails {
+        description
+        githubUrl
+        liveUrl
+        status
+        projectType
+        technologies
+      }
     }
   }
 `;
