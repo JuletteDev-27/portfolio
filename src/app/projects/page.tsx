@@ -1,6 +1,8 @@
 import { wordpress } from "@/lib/wordpress";
 import { GET_PROJECTS } from "@/lib/queries";
 import type { Project } from "@/types/project";
+import Link from "next/link";
+
 
 type GetProjectsResponse = {
     projects: {
@@ -24,18 +26,19 @@ export default async function ProjectsPage() {
 
             <div className="mt-10 grid gap-6 md:grid-cols-2">
                 {data.projects.nodes.map((project) => (
-                    <article
+                    <Link
                         key={project.id}
-                        className="rounded-xl border p-6"
+                        href={`/projects/${project.slug}`}
+                        className="block rounded-xl border p-6 transition hover:-translate-y-1"
                     >
                         <h2 className="text-2xl font-semibold">
                             {project.title}
                         </h2>
 
                         <p className="mt-2 text-sm text-gray-500">
-                            {project.slug}
+                            View project →
                         </p>
-                    </article>
+                    </Link>
                 ))}
             </div>
         </main>
