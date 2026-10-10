@@ -17,7 +17,6 @@ export type Project = {
     title: string;
     slug: string;
     date: string;
-    content: string;
 
     featuredImage: {
         node: ProjectImage | null;

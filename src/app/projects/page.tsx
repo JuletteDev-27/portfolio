@@ -2,12 +2,24 @@ import { wordpress } from "@/lib/wordpress";
 import { GET_PROJECTS } from "@/lib/queries";
 import type { Project } from "@/types/project";
 import Link from "next/link";
-import Image from "next/image";
+import type { Metadata } from "next";
 
 type GetProjectsResponse = {
     projects: {
         nodes: Project[];
     };
+};
+
+export const metadata: Metadata = {
+    title: "Projects",
+    description:
+        "Explore my software development projects, technical work, and applications I've built.",
+    openGraph: {
+        title: "Projects",
+        description:
+            "Explore my software development projects and applications.",
+        type: "website",
+    },
 };
 
 export default async function ProjectsPage() {
@@ -27,38 +39,48 @@ export default async function ProjectsPage() {
             <div className="mt-10 grid gap-6 md:grid-cols-2">
                 {data.projects.nodes.map((project) => (
                     <Link
-                        key={project.id}
                         href={`/projects/${project.slug}`}
-                        className="group overflow-hidden rounded-2xl border"
+                        className="group block overflow-hidden rounded-2xl border"
                     >
                         {project.featuredImage?.node && (
-                            <div className="relative aspect-video overflow-hidden">
+                            <div className="aspect-video overflow-hidden">
                                 <img
                                     src={project.featuredImage.node.sourceUrl}
-                                    alt={
-                                        project.featuredImage.node.altText ||
-                                        project.title
-                                    }
-                                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                    alt={project.featuredImage.node.altText || project.title}
+                                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                                 />
                             </div>
                         )}
 
                         <div className="p-6">
-                            <h2 className="text-2xl font-semibold">
+                            <p className="text-sm text-gray-500">
+                                {new Date(project.date).toLocaleDateString()}
+                            </p>
+
+                            <h2 className="mt-2 text-2xl font-semibold">
                                 {project.title}
                             </h2>
 
-                            <p className="mt-2 text-gray-600">
-                                {project.projectDetails.description}
-                            </p>
+                            {project.projectDetails?.description && (
+                                <p className="mt-3 text-gray-600">
+                                    {project.projectDetails.description}
+                                </p>
+                            )}
 
-                            <p className="mt-4 text-sm">
-                                View project →
-                            </p>
+                            <div className="mt-4 flex flex-wrap gap-2">
+                                {project.projectDetails?.technologies
+                                    .split(",")
+                                    .map((technology) => (
+                                        <span
+                                            key={technology.trim()}
+                                            className="rounded-full bg-gray-100 px-3 py-1 text-sm"
+                                        >
+                                            {technology.trim()}
+                                        </span>
+                                    ))}
+                            </div>
                         </div>
-                    </Link>
-                ))}
+                    </Link>))}
             </div>
         </main>
     );
