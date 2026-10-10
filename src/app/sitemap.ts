@@ -1,5 +1,6 @@
 
 import type { MetadataRoute } from "next";
+import { connection } from "next/server";
 import { wordpress } from "@/lib/wordpress";
 import { GET_PROJECTS } from "@/lib/queries";
 import type { Project } from "@/types/project";
@@ -11,6 +12,8 @@ type GetProjectsResponse = {
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    await connection();
+
     const baseUrl =
         process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
@@ -32,18 +35,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             GET_PROJECTS
         );
 
-        const projectRoutes: MetadataRoute.Sitemap = data.projects.nodes.map(
-            (project) => ({
+        const projectRoutes: MetadataRoute.Sitemap =
+            data.projects.nodes.map((project) => ({
                 url: `${baseUrl}/projects/${project.slug}`,
                 lastModified: project.date,
                 changeFrequency: "monthly",
                 priority: 0.7,
-            })
-        );
+            }));
 
         return [...staticRoutes, ...projectRoutes];
     } catch (error) {
-        console.error("Failed to generate project sitemap:", error);
+        console.error("Failed to fetch projects for sitemap:", error);
         return staticRoutes;
     }
 }

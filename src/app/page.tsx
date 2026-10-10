@@ -1,3 +1,4 @@
+export const instant = false;
 import Link from "next/link";
 import { wordpress } from "@/lib/wordpress";
 import { GET_PROJECTS } from "@/lib/queries";
@@ -117,7 +118,7 @@ export default async function Home() {
                         href="mailto:your-email@example.com"
                         className="mt-6 inline-block font-medium underline"
                     >
-                        your-email@example.com
+                        pequejulette012702@gmail.com
                     </a>
                 </div>
             </section>

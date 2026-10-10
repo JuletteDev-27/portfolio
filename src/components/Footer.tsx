@@ -1,42 +1,43 @@
+
 import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer className="border-t">
-            <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 sm:flex-row sm:items-center sm:justify-between">
+        <footer className="border-t border-white/10">
+            <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-10 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-sm text-gray-500">
-                    © {new Date().getFullYear()} Julette Anthony C. Peque. All rights reserved.
+                    © 2026 Julette Anthony Peque. All rights reserved.
                 </p>
 
-                <div className="flex gap-5 text-sm">
+                <div className="flex gap-5 text-sm text-gray-500">
                     <Link
                         href="/"
-                        className="text-gray-500 transition hover:text-black"
+                        className="transition hover:text-white"
                     >
                         Home
                     </Link>
 
                     <Link
                         href="/projects"
-                        className="text-gray-500 transition hover:text-black"
+                        className="transition hover:text-white"
                     >
                         Projects
                     </Link>
 
                     <a
-                        href="https://github.com/YOUR_USERNAME"
+                        href="https://github.com/JuletteDev-27"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-500 transition hover:text-black"
+                        className="transition hover:text-white"
                     >
                         GitHub
                     </a>
 
                     <a
-                        href="https://www.linkedin.com/in/YOUR_USERNAME"
+                        href="https://www.linkedin.com/in/julette-anthony-peque-50425532a"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-500 transition hover:text-black"
+                        className="transition hover:text-white"
                     >
                         LinkedIn
                     </a>

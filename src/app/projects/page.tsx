@@ -1,8 +1,12 @@
+export const instant = false;
+
 import { wordpress } from "@/lib/wordpress";
 import { GET_PROJECTS } from "@/lib/queries";
 import type { Project } from "@/types/project";
 import Link from "next/link";
 import type { Metadata } from "next";
+
+
 
 type GetProjectsResponse = {
     projects: {
